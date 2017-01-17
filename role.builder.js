@@ -28,10 +28,11 @@ module.exports = {
                     }
             });
             if(closest) {
-                if(creep.repair(closest) == ERR_NOT_IN_RANGE) {
+                let status = creep.repair(closest)
+                if(status == ERR_NOT_IN_RANGE) {
                     creep.moveTo(closest);
                 } else {
-                    creep.say('Repair')
+                    creep.say('Repair ' + status)
                 }
             } else {
                 creep.say('Nothing to repair')

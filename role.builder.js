@@ -24,7 +24,7 @@ module.exports = {
             
             closest = creep.pos.findClosestByRange(FIND_STRUCTURES, {
                     filter: (structure) => {
-                        return (structure.hits < MIN_HITS);
+                        return (structure.hits < MIN_HITS && structure.hits < structure.hitsMax);
                     }
             });
             if(closest) {

@@ -28,15 +28,15 @@ module.exports = {
                     }
             });
             if(closest) {
-                creep.say('Repair')
                 if(creep.repair(closest) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(closest);
+                } else {
+                    creep.say('Repair')
                 }
             } else {
                 creep.say('Nothing to repair')
             }           
-        }
-        else {
+        } else {
             let closest = creep.pos.findClosestByRange(FIND_SOURCES);
             if(creep.harvest(closest) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(closest);

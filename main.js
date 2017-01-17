@@ -40,7 +40,6 @@ module.exports.loop = function () {
     }
     
     for(var role in roles) {
-        console.log(role)
          if(!ensureEnoughOfRole(roles[role])) {
              break;
          }

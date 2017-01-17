@@ -18,9 +18,12 @@ var roleHarvester = {
                     }
             });
             if(closest) {
+                creep.say('Moving to closest structure')
                 if(creep.transfer(closest, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(closest);
                 }
+            } else {
+                creep.say('No structure close')
             }
     }
     }

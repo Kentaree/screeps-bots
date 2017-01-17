@@ -23,7 +23,7 @@ var roleBuilder = {
             
             var closest = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
                     filter: (structure) => {
-                        console.log('Structure ' + structure.id + " hp: " + structure.hits + "/" + structure.hitsMax)
+                        console.log('Structure ' + structure.id + " hp: " +structure.hits + "/" + structure.hitsMax)
                         return (structure.hits < structure.hitsMax);
                     }
             });

@@ -17,6 +17,9 @@ var roleBuilder = {
                 if(creep.build(closest) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(closest);
                 }
+            } else {
+                creep.say('No construction site')
+                creep.memory.building=false
             }
         }
         else {

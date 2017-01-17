@@ -12,7 +12,7 @@ module.exports = {
     builder: {
         parts: [WORK,CARRY,MOVE],
         role: 'builder',
-        min: 4,
+        min: 1,
         run: roleBuilder.run
     },
     upgrader: {

@@ -17,6 +17,8 @@ var roleBuilder = {
                 if(creep.build(closest) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(closest);
                 }
+            } else {
+                creep.say('No sites')
             }
             
             var closest = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
@@ -29,7 +31,9 @@ var roleBuilder = {
                 if(creep.repair(closest) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(closest);
                 }
-            }            
+            } else {
+                creep.say('Nothing to repair')
+            }           
         }
         else {
             var closest = creep.pos.findClosestByRange(FIND_SOURCES);

@@ -28,6 +28,7 @@ var roleBuilder = {
                     }
             });
             if(closest) {
+                creep.say('Repair')
                 if(creep.repair(closest) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(closest);
                 }

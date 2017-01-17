@@ -17,10 +17,21 @@ var roleBuilder = {
                 if(creep.build(closest) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(closest);
                 }
-            } else {
-                creep.say('No construction site')
-                creep.memory.building=false
             }
+            
+            var closest = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
+                    filter: (structure) => {
+                        return (structure.structureType == STRUCTURE_EXTENSION ||
+                                structure.structureType == STRUCTURE_SPAWN ||
+                                structure.structureType == STRUCTURE_STORAGE ||
+                                structure.structureType == STRUCTURE_TOWER) && structure.hits < structure.hitsMax;
+                    }
+            });
+            if(closest) {
+                if(creep.repair(closest) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(closest);
+                }
+            }            
         }
         else {
             var closest = creep.pos.findClosestByRange(FIND_SOURCES);

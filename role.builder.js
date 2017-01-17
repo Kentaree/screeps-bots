@@ -1,4 +1,6 @@
-var roleBuilder = {
+const MIN_HITS=25000;
+
+module.exports = {
 
     /** @param {Creep} creep **/
     run: function(creep) {
@@ -12,18 +14,17 @@ var roleBuilder = {
         }
 
         if(creep.memory.building) {
-            var closest = creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES);
+            let closest = creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES);
             if(closest) {
                 if(creep.build(closest) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(closest);
                 }
-            } else {
-                creep.say('No sites')
+                return;
             }
             
-            var closest = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+            closest = creep.pos.findClosestByRange(FIND_STRUCTURES, {
                     filter: (structure) => {
-                        return (structure.hits < structure.hitsMax);
+                        return (structure.hits < MIN_HITS);
                     }
             });
             if(closest) {
@@ -36,12 +37,10 @@ var roleBuilder = {
             }           
         }
         else {
-            var closest = creep.pos.findClosestByRange(FIND_SOURCES);
+            let closest = creep.pos.findClosestByRange(FIND_SOURCES);
             if(creep.harvest(closest) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(closest);
             }
         }
     }
 };
-
-module.exports = roleBuilder;

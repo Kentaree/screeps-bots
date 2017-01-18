@@ -12,7 +12,7 @@ function ensureEnoughOfRole(role) {
 module.exports = {
     process : function () {
         for(let key in Game.rooms) {
-            let room = Game.rooms[key]
+            let room = Game.rooms[key];
             if (!room.memory.sources) {
                 room.memory.sources = room.find(FIND_SOURCES_ACTIVE);
             }
@@ -24,12 +24,13 @@ module.exports = {
             });
 
             let i = 0;
-            room.creeps.forEach(function (creep) {
+            for(let name in room.creeps) {
+                let creep = room.creeps[name];
                 if (!creep.memory.source) {
                     creep.memory.source = room.memory.sources[i % room.memory.sources.length]
                 }
                 i++;
-            })
+            }
         }
     }
 }

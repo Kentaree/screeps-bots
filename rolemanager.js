@@ -1,5 +1,4 @@
 var roles = require('roles');
-var _ = require('lodash');
 
 function ensureEnoughOfRole(role) {
     let creeps = _.filter(Game.creeps, (creep) => creep.memory.role == role.role);
@@ -12,9 +11,8 @@ function ensureEnoughOfRole(role) {
 
 module.exports = {
     process : function () {
-        console.log('Game ' + Game)
-        console.log('Game rooms ' + Game.rooms)
-        _.forIn(Game.rooms,(function (room, key) {
+        for(let key in Game.rooms) {
+            let room = Game.rooms[key]
             if (!room.memory.sources) {
                 room.memory.sources = room.find(FIND_SOURCES_ACTIVE);
             }
@@ -32,6 +30,6 @@ module.exports = {
                 }
                 i++;
             })
-        }))
+        }
     }
 }

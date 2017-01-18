@@ -12,6 +12,8 @@ function ensureEnoughOfRole(role) {
 
 module.exports = {
     process : function () {
+        console.log('Game ' + Game)
+        console.log('Game rooms ' + Game.rooms)
         _.forIn(Game.rooms,(function (room, key) {
             if (!room.memory.sources) {
                 room.memory.sources = room.find(FIND_SOURCES_ACTIVE);

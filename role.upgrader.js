@@ -18,7 +18,12 @@ var roleUpgrader = {
             }
         }
         else {
-            var closest = creep.pos.findClosestByRange(FIND_SOURCES);
+            let closest;
+            if(creep.memory.source) {
+                closest = creep.memory.source;
+            } else {
+                closest = creep.pos.findClosestByRange(FIND_SOURCES);
+            }
             if(creep.harvest(closest) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(closest);
             }

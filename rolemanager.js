@@ -9,12 +9,26 @@ function ensureEnoughOfRole(role) {
     return true;
 }
 
-Game.rooms.forEach(function(room){
-    var notFullStructures = room.find(FIND_MY_STRUCTURES, { filter : function(structure) {
-        return structure.transferEnergy && (structure.energy < structure.energyCapacity);
-    }});
+module.exports = {
+    process : function () {
+        Game.rooms.forEach(function (room) {
+            if (!room.memory.sources) {
+                room.memory.sources = room.find(FIND_SOURCES_ACTIVE);
+            }
 
+            let notFullStructures = room.find(FIND_MY_STRUCTURES, {
+                filter: function (structure) {
+                    return (typeof structure.energy !== 'undefined');
+                }
+            });
 
-
-
-});
+            let i = 0;
+            room.creeps.forEach(function (creep) {
+                if (!creep.memory.source) {
+                    creep.memory.source = room.memory.sources[i % room.memory.sources.length]
+                }
+                i++;
+            })
+        })
+    }
+}

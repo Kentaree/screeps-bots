@@ -1,5 +1,5 @@
 var roles = require('roles');
-
+var rolemanager = require('rolemanager');
 function ensureEnoughOfRole(role) {
     let creeps = _.filter(Game.creeps, (creep) => creep.memory.role == role.role);
     if(creeps.length < role.min) {
@@ -44,4 +44,5 @@ module.exports.loop = function () {
              break;
          }
     }
-}
+    rolemanager.process();
+};

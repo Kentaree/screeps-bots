@@ -27,7 +27,7 @@ module.exports = {
             for(let i = 0; i < creeps.length; i++) {
                 let creep = creeps[i];
                 if (!creep.memory.source) {
-                    creep.memory.source = room.memory.sources[i % room.memory.sources.length]
+                    creep.memory.source = room.memory.sources[i % room.memory.sources.length].id
                 }
             }
         }

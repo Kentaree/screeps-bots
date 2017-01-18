@@ -5,7 +5,7 @@ var roleHarvester = {
         if(creep.carry.energy < creep.carryCapacity) {
             let closest;
             if(creep.memory.source) {
-                closest = creep.memory.source;
+                closest = Game.getObjectById(creep.memory.source)
             } else {
                 closest = creep.pos.findClosestByRange(FIND_SOURCES);
             }

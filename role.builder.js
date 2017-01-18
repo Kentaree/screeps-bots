@@ -41,7 +41,7 @@ module.exports = {
         } else {
             let closest;
             if(creep.memory.source) {
-                closest = creep.memory.source;
+                closest = Game.getObjectById(creep.memory.source)
             } else {
                 closest = creep.pos.findClosestByRange(FIND_SOURCES);
             }

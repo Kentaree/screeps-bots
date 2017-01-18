@@ -16,6 +16,9 @@ module.exports = {
             if (!room.memory.sources) {
                 room.memory.sources = room.find(FIND_SOURCES_ACTIVE);
             }
+            let sourcesCount=room.memory.sources.length
+            console.log('Room sources: ' + sourcesCount)
+
 
             let notFullStructures = room.find(FIND_MY_STRUCTURES, {
                 filter: function (structure) {
@@ -27,7 +30,7 @@ module.exports = {
             for(let i = 0; i < creeps.length; i++) {
                 let creep = creeps[i];
                 if (!creep.memory.source) {
-                    creep.memory.source = room.memory.sources[i % room.memory.sources.length].id
+                    creep.memory.source = room.memory.sources[i % sourcesCount].id
                 }
             }
         }

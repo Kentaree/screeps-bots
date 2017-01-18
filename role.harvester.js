@@ -14,8 +14,9 @@ var roleHarvester = {
             }
         }
         else {
-            var closest = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
+            var closest = creep.pos.findClosestByRange(FIND_STRUCTURES, {
                     filter: (structure) => {
+                        console.log('Structure ' + structure.structureType)
                         return ((structure.structureType == STRUCTURE_EXTENSION ||
                                 structure.structureType == STRUCTURE_SPAWN ||
                                 structure.structureType == STRUCTURE_CONTAINER ||

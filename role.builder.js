@@ -28,7 +28,6 @@ module.exports = {
                     }
             });
             if(closest) {
-                console.log('Repair closest ' + closest)
                 let status = creep.repair(closest)
                 if(status == ERR_NOT_IN_RANGE) {
                     creep.moveTo(closest);

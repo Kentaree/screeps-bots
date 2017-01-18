@@ -17,8 +17,6 @@ module.exports = {
                 room.memory.sources = room.find(FIND_SOURCES_ACTIVE);
             }
             let sourcesCount=room.memory.sources.length
-            console.log('Room sources: ' + sourcesCount)
-
 
             let notFullStructures = room.find(FIND_MY_STRUCTURES, {
                 filter: function (structure) {

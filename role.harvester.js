@@ -1,3 +1,5 @@
+let _ = require('lodash')
+
 var roleHarvester = {
 
     /** @param {Creep} creep **/
@@ -20,7 +22,7 @@ var roleHarvester = {
                                 structure.structureType == STRUCTURE_SPAWN ||
                                 structure.structureType == STRUCTURE_CONTAINER ||
                                 structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity) ||
-                                structure.structureType == STRUCTURE_CONTAINER;
+                                structure.structureType == STRUCTURE_CONTAINER && _.sum(structure.store) < storeCapacity;
                     }
             });
             if(closest) {

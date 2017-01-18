@@ -23,13 +23,12 @@ module.exports = {
                 }
             });
 
-            let i = 0;
-            for(let name in room.creeps) {
-                let creep = room.creeps[name];
+            let creeps = room.find(FIND_MY_CREEPS);
+            for(let i = 0; i < creeps.length; i++) {
+                let creep = creeps[i];
                 if (!creep.memory.source) {
                     creep.memory.source = room.memory.sources[i % room.memory.sources.length]
                 }
-                i++;
             }
         }
     }

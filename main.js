@@ -33,12 +33,21 @@ module.exports.loop = function () {
         }
     }
 
+    var counter = {};
     for(let name in Game.creeps) {
         let creep = Game.creeps[name];
         let role = roles[creep.memory.role];
         role.run(creep);
+
+        counter[role.role] = 1 + (counter[role.role] || 0)
     }
-    
+
+    if(!(Game.time % 5)) {
+        for (let role in counter) {
+            console.log('Role ' + role + ": " + counter[role])
+        }
+    }
+
     for(var role in roles) {
          if(!ensureEnoughOfRole(roles[role])) {
              break;

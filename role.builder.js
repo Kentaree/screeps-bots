@@ -22,9 +22,9 @@ module.exports = {
                 structureRange = 9999;
             }
             if(sourceRange > structureRange) {
-                creep.memory.currentSource=source.id;
-            } else {
                 creep.memory.currentSource=closest.id;
+            } else {
+                creep.memory.currentSource=source.id;
             }
         }
         if(!creep.memory.building && creep.carry.energy == creep.carryCapacity) {

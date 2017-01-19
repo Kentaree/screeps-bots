@@ -15,7 +15,7 @@ function findSuitableDropoff(creep) {
     if(!structures) {
         structures = creep.room.find(FIND_STRUCTURES, { filter: (structure) => { return ((structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity) || (structure.structureType == STRUCTURE_CONTAINER && _.sum(structure.store) < structure.storeCapacity) } } )
     }
-    if(structures) {
+    if(structures && structures.length>0) {
         let target = _.reduce(structures, function(result, structure) {
             let range=creep.pos.getRangeTo(structure);
             if(result && result.range < range) {
@@ -23,7 +23,7 @@ function findSuitableDropoff(creep) {
             }
             return {range: range, structure: structure}
         },{range: 99999});
-        creep.memory.dropoff =  target.structure.id;
+        creep.memory.dropoff = target.structure.id;
         return target.structure
     }
 }

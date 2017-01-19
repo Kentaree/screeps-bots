@@ -64,7 +64,7 @@ module.exports = {
                 closest = creep.pos.findClosestByRange(FIND_SOURCES);
             }
 
-            if((structure.structureType == STRUCTURE_CONTAINER && creep.withdraw(structure,RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) ||
+            if((closest.structureType == STRUCTURE_CONTAINER && creep.withdraw(closest,RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) ||
                 (creep.harvest(closest) == ERR_NOT_IN_RANGE)) {
                 creep.moveTo(closest);
             }

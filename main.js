@@ -43,6 +43,7 @@ module.exports.loop = function () {
     }
 
     if(!(Game.time % 5)) {
+        console.log('*********');
         for (let role in counter) {
             console.log('Role ' + role + ": " + counter[role])
         }

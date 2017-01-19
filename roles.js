@@ -6,19 +6,19 @@ module.exports = {
     harvester: {
         parts: [WORK,WORK,CARRY,CARRY,MOVE],
         role: 'harvester',
-        min: 3,
+        min: 2,
         run: roleHarvester.run        
     },    
     builder: {
-        parts: [WORK,CARRY,MOVE],
+        parts: [WORK,WORK,CARRY,CARRY,MOVE],
         role: 'builder',
-        min: 5,
+        min: 3,
         run: roleBuilder.run
     },
     upgrader: {
-        parts: [WORK,CARRY,MOVE],
+        parts: [WORK,WORK,CARRY,CARRY,MOVE],
         role: 'upgrader',
-        min: 10,
+        min: 6,
         run: roleUpgrader.run                
     }    
 };

@@ -21,7 +21,7 @@ let roleHarvester = {
                         return result;
                     }
                     return {range: range, structure: structure}
-                });
+                },{range: 99999});
                 creep.memory.dropoff =  target.structure.id
             }
         }

@@ -5,6 +5,24 @@ var roleUpgrader = {
         if(creep.memory.upgrading && creep.carry.energy == 0) {
             creep.memory.upgrading = false;
             creep.say('harvesting');
+            let source = Game.getObjectById(creep.memory.source)
+            let sourceRange = creep.pos.getRangeTo(source)
+            let closest = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+                filter: (structure) => {
+                    return (structure.structureType == STRUCTURE_CONTAINER && _.sum(structure.store) > 0)
+                }
+            });
+            let structureRange;
+            if(closest) {
+                structureRange = creep.pos.getRangeTo(closest);
+            } else {
+                structureRange = 9999;
+            }
+            if(sourceRange > structureRange) {
+                creep.memory.currentSource=source.id;
+            } else {
+                creep.memory.currentSource=closest.id;
+            }
         }
         if(!creep.memory.upgrading && creep.carry.energy == creep.carryCapacity) {
             creep.memory.upgrading = true;
@@ -19,12 +37,14 @@ var roleUpgrader = {
         }
         else {
             let closest;
-            if(creep.memory.source) {
-                closest = Game.getObjectById(creep.memory.source)
+            if(creep.memory.currentSource) {
+                closest = Game.getObjectById(creep.memory.currentSource)
             } else {
                 closest = creep.pos.findClosestByRange(FIND_SOURCES);
             }
-            if(creep.harvest(closest) == ERR_NOT_IN_RANGE) {
+
+            if((structure.structureType == STRUCTURE_CONTAINER && creep.withdraw(structure,RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) ||
+                (creep.harvest(closest) == ERR_NOT_IN_RANGE)) {
                 creep.moveTo(closest);
             }
         }

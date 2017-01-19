@@ -16,13 +16,12 @@ var roleHarvester = {
             }
         }
         else {
-            var closest = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+            var closest = creep.pos.findClosestByPath(FIND_STRUCTURES, {
                     filter: (structure) => {
                         return ((structure.structureType == STRUCTURE_EXTENSION ||
-                                structure.structureType == STRUCTURE_SPAWN ||
-                                structure.structureType == STRUCTURE_CONTAINER ||
-                                structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity) ||
-                                structure.structureType == STRUCTURE_CONTAINER && _.sum(structure.store) < storeCapacity;
+                            structure.structureType == STRUCTURE_SPAWN ||
+                            structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity) ||
+                            (structure.structureType == STRUCTURE_CONTAINER && _.sum(structure.store) < structure.storeCapacity);
                     }
             });
             if(closest) {
@@ -33,7 +32,7 @@ var roleHarvester = {
             } else {
                 creep.say('No structure close')
             }
-    }
+        }
     }
 };
 

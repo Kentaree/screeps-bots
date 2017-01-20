@@ -1,4 +1,4 @@
-const MIN_HITS=25000;
+const MIN_HITS=250000;
 let _ = require('lodash');
 let util = require('common');
 
@@ -28,11 +28,11 @@ module.exports = {
                 }
                 return;
             }
-            
+
             closest = creep.pos.findClosestByRange(FIND_STRUCTURES, {
-                    filter: (structure) => {
-                        return (structure.hits < MIN_HITS && structure.hits < structure.hitsMax);
-                    }
+                filter: (structure) => {
+                    return (structure.hits < MIN_HITS && structure.hits < structure.hitsMax);
+                }
             });
             if(closest) {
                 let status = creep.repair(closest)

@@ -1,11 +1,6 @@
 let _ = require('lodash');
+let utils = require('common');
 
-function hasEnergySpace(structure) {
-    if(structure.structureType == STRUCTURE_CONTAINER) {
-        return _.sum(structure.store) < structure.storeCapacity;
-    }
-    return structure.energy > structure.energyCapacity;
-}
 
 function findSuitableDropoff(creep) {
     let structures = creep.room.find(FIND_MY_STRUCTURES, { filter: (structure) => { return structure.structureType == STRUCTURE_SPAWN && structure.energy < structure.energyCapacity; } } )
@@ -49,13 +44,13 @@ let roleHarvester = {
                 closest = Game.getObjectById(creep.memory.source);
                 if(creep.harvest(closest) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(closest);
-                    creep.say('Move source');
+                    creep.say('Move src');
                 }
             }
         }  else {
             if(creep.memory.dropoff) {
                 let closest = Game.getObjectById(creep.memory.dropoff);
-                if(!hasEnergySpace(closest)) {
+                if(!utils.hasEnergySpace(closest)) {
                     closest = findSuitableDropoff(creep)
                 }
                 creep.say('Moving');

@@ -1,5 +1,7 @@
 const MIN_HITS=25000;
-let _ = require('lodash')
+let _ = require('lodash');
+let util = require('common');
+
 module.exports = {
 
     /** @param {Creep} creep **/
@@ -8,22 +10,8 @@ module.exports = {
             creep.memory.building = false;
             creep.say('harvesting');
 
-            let source = Game.getObjectById(creep.memory.source)
-            let sourceRange = creep.pos.getRangeTo(source)
-            let closest = creep.pos.findClosestByRange(FIND_STRUCTURES, {
-                filter: (structure) => {
-                    return (structure.structureType == STRUCTURE_CONTAINER && _.sum(structure.store) > 0)
-                }
-            });
-            let structureRange;
-            if(closest) {
-                structureRange = creep.pos.getRangeTo(closest);
-            } else {
-                structureRange = 9999;
-            }
-            if(sourceRange > structureRange) {
-                creep.memory.currentSource=closest.id;
-            } else {
+            let source = util.findBestEnergySource(creep);
+            if(source) {
                 creep.memory.currentSource=source.id;
             }
         }
@@ -62,6 +50,15 @@ module.exports = {
                 closest = Game.getObjectById(creep.memory.currentSource)
             } else {
                 closest = creep.pos.findClosestByRange(FIND_SOURCES);
+            }
+
+            if(!util.hasEnergySpace(closest)) {
+                closest = util.findBestEnergySource(creep);
+            }
+
+            if(!closest) {
+                creep.say('Narp')
+                return
             }
 
             if((closest.structureType == STRUCTURE_CONTAINER && creep.withdraw(closest,RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) ||

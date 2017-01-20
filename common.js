@@ -8,7 +8,7 @@ module.exports = {
             }
         });
         let structureRange = closest ? creep.pos.getRangeTo(closest) : 99999;
-        let closestSource = creep.post.findClosestByPath(FIND_SOURCES_ACTIVE);
+        let closestSource = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
         let sourceRange=closestSource ?  creep.pos.getRangeTo(closestSource) : 99999;
 
         if(sourceRange > structureRange) {

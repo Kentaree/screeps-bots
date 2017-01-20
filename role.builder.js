@@ -1,6 +1,25 @@
 const MIN_HITS=250000;
+const MIN_HITS_PERCENT=30;
+const HEAL_UNTIL_PERCENT=60;
 let _ = require('lodash');
 let util = require('common');
+
+function pickProject(creep) {
+    let closest = creep.pos.findClosestByPath(FIND_MY_CONSTRUCTION_SITES);
+    if(closest) {
+        creep.memory.project = closest.id;
+        return closest;
+    }
+    closest = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+        filter: (structure) => {
+            return (structure.hits < structure.hitsMax*MIN_HITS_PERCENT);
+        }
+    });
+    if(closest) {
+        creep.memory.project = closest.id
+        return closest;
+    }
+}
 
 module.exports = {
 

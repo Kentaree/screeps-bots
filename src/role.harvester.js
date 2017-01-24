@@ -36,7 +36,10 @@ let roleHarvester = {
         if(!creep.memory.harvesting && creep.carry.energy==0) {
             creep.say('Harvesting');
             creep.memory.harvesting = true;
-            creep.memory.source = creep.pos.findClosestByPath(FIND_SOURCES).id;
+            let source = creep.pos.findClosestByPath(FIND_SOURCES);
+            if(source) {
+                creep.memory.source = source.id;
+            }
         }
 
         if(creep.memory.harvesting) {
@@ -45,6 +48,11 @@ let roleHarvester = {
                 if(creep.harvest(closest) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(closest);
                     creep.say('Move src');
+                }
+            } else {
+                let source = creep.pos.findClosestByPath(FIND_SOURCES);
+                if(source) {
+                    creep.memory.source = source.id;
                 }
             }
         }  else {

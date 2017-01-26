@@ -34,10 +34,28 @@ function findSuitableDropoff(creep) {
 
 module.exports = {
     process : function () {
+
         for(let key in Game.rooms) {
             let room = Game.rooms[key];
             if (!room.memory.sources) {
-                room.memory.sources = room.find(FIND_SOURCES_ACTIVE);
+                let sources = room.find(FIND_SOURCES_ACTIVE);
+                let memSources = [];
+                sources.forEach(function(source) {
+                    let startY = source.pos.y-1;
+                    let startX = source.pos.x-1;
+                    let passable = 0;
+                    for(let y=startY; y < (startY+3); y++) {
+                        for(let x=startX; x < (startX+3); x++) {
+                            let terrain = new RoomPosition(x,y,room.name).lookFor(LOOK_TERRAIN)[0];
+                            if(terrain !== "wall") {
+                                ++passable;
+                            }
+                        }
+                    }
+                    console.log('Source ' + source.id + " has " + passable + " passable squares");
+                    memSources.push({id: source.id, passable: passable});
+                });
+                room.memory.sources = memSources;
             }
             let sourcesCount=room.memory.sources.length
 

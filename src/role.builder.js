@@ -4,23 +4,6 @@ const HEAL_UNTIL_PERCENT=60;
 let _ = require('lodash');
 let util = require('common');
 
-function pickProject(creep) {
-    let closest = creep.pos.findClosestByPath(FIND_MY_CONSTRUCTION_SITES);
-    if(closest) {
-        creep.memory.project = closest.id;
-        return closest;
-    }
-    closest = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-        filter: (structure) => {
-            return (structure.hits < structure.hitsMax*MIN_HITS_PERCENT);
-        }
-    });
-    if(closest) {
-        creep.memory.project = closest.id
-        return closest;
-    }
-}
-
 module.exports = {
 
     /** @param {Creep} creep **/
@@ -40,6 +23,14 @@ module.exports = {
         }
 
         if(creep.memory.building) {
+            if(creep.memory.project) {
+                let target = Game.getObjectById(creep.memory.project)
+                if(!target) {
+                    creep.memory.idle=true;
+                }
+
+            }
+
             let closest = creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES);
             if(closest) {
                 if(creep.build(closest) == ERR_NOT_IN_RANGE) {

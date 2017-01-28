@@ -27,32 +27,26 @@ module.exports = {
                 let target = Game.getObjectById(creep.memory.project)
                 if(!target) {
                     creep.memory.idle=true;
-                }
-
-            }
-
-            let closest = creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES);
-            if(closest) {
-                if(creep.build(closest) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(closest);
-                }
-                return;
-            }
-
-            closest = creep.pos.findClosestByRange(FIND_STRUCTURES, {
-                filter: (structure) => {
-                    return (structure.hits < MIN_HITS && structure.hits < structure.hitsMax);
-                }
-            });
-            if(closest) {
-                let status = creep.repair(closest)
-                if(status == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(closest);
                 } else {
-                    creep.say('Repair ' + status)
+                    if(creep.memory.construction) {
+                        let result = creep.build(target)
+                        if(result == ERR_NOT_IN_RANGE) {
+                            creep.moveTo(closest);
+                        } else if(result == ERR_INVALID_TARGET) {
+                            creep.memory.idle=true;
+                        }
+                    } else {
+                        if(target.hits >= target.hitsMax*(HEAL_UNTIL_PERCENT/100)) {
+                            creep.memory.idle = true
+                        } else {
+                            if(creep.repair(target) == ERR_NOT_IN_RANGE) {
+                                creep.moveTo(target);
+                            }                            
+                        }
+                    }
                 }
             } else {
-                creep.say('Nothing to repair')
+                creep.memory.idle=true
             }
         } else {
             let closest;

@@ -52,7 +52,7 @@ module.exports = {
                             }
                         }
                     }
-                    console.log('Source ' + source.id + " has " + passable + " passable squares");
+                    Game.notify('Source ' + source.id + " has " + passable + " passable squares");
                     memSources.push({id: source.id, passable: passable});
                 });
                 room.memory.sources = memSources;
@@ -76,6 +76,7 @@ module.exports = {
                         site=creep.pos.findClosestByPath(constructionSites);
                         if(site) {
                             creep.memory.project=site.id;
+                            creep.memory.construction=true;
                             creep.memory.idle=false
                         }
                     }
@@ -83,6 +84,7 @@ module.exports = {
                         site=creep.pos.findClosestByPath(inNeedofRepair);
                         if(site) {
                             creep.memory.project=site.id;
+                            creep.memory.construction=false;
                             creep.memory.idle=false
                         }
                     }

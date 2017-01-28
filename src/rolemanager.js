@@ -49,7 +49,12 @@ module.exports = {
                     let passable = 0;
                     for(let y=startY; y < (startY+3); y++) {
                         for(let x=startX; x < (startX+3); x++) {
-                            let square = new RoomPosition(x,y,room.name).look();
+                            let square = new RoomPosition(x,y,room.name).look().map(function(lookRes) {
+                                if(lookRes.type === 'terrain') {
+                                    return lookRes['terrain'];
+                                }
+                                return lookRes.type;
+                            });
                             if(_.intersection(square,OBSTACLE_OBJECT_TYPES_NO_CREEP).length==0) {
                                 ++passable
                             }

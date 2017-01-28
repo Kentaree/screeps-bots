@@ -1,6 +1,8 @@
 var roles = require('roles');
 let utils = require('common');
 
+const MIN_HITS_PERCENT=30;
+
 function ensureEnoughOfRole(role) {
     let creeps = _.filter(Game.creeps, (creep) => creep.memory.role == role.role);
     if(creeps.length < role.min) {
@@ -61,7 +63,7 @@ module.exports = {
 
             let constructionSites = room.find(FIND_MY_CONSTRUCTION_SITES);
             let inNeedofRepair = room.find(FIND_STRUCTURES, {filter: (structure) => {
-                return (structure.hits < structure.hitsMax*MIN_HITS_PERCENT);
+                return (structure.hits < structure.hitsMax*(MIN_HITS_PERCENT/100));
             }});
 
             let creeps = room.find(FIND_MY_CREEPS);

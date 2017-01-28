@@ -31,7 +31,7 @@ module.exports = {
                     if(creep.memory.construction) {
                         let result = creep.build(target)
                         if(result == ERR_NOT_IN_RANGE) {
-                            creep.moveTo(closest);
+                            creep.moveTo(target);
                         } else if(result == ERR_INVALID_TARGET) {
                             creep.memory.idle=true;
                         }

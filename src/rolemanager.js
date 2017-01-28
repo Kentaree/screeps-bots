@@ -53,6 +53,10 @@ module.exports = {
                                 if(lookRes.type === 'terrain') {
                                     return lookRes['terrain'];
                                 }
+                                if(lookRes.type === 'structure') {
+                                    return lookRes['structure'].structureType;
+                                }
+
                                 return lookRes.type;
                             });
                             if(_.intersection(square,OBSTACLE_OBJECT_TYPES_NO_CREEP).length==0) {

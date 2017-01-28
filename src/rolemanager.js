@@ -2,6 +2,7 @@ var roles = require('roles');
 let utils = require('common');
 
 const MIN_HITS_PERCENT=30;
+const OBSTACLE_OBJECT_TYPES_NO_CREEP = ["spawn", "wall", "source", "constructedWall", "extension", "link", "storage", "tower", "observer", "powerSpawn", "powerBank", "lab", "terminal","nuker"]
 
 function ensureEnoughOfRole(role) {
     let creeps = _.filter(Game.creeps, (creep) => creep.memory.role == role.role);
@@ -48,9 +49,9 @@ module.exports = {
                     let passable = 0;
                     for(let y=startY; y < (startY+3); y++) {
                         for(let x=startX; x < (startX+3); x++) {
-                            let terrain = new RoomPosition(x,y,room.name).lookFor(LOOK_TERRAIN)[0];
-                            if(terrain !== "wall") {
-                                ++passable;
+                            let square = new RoomPosition(x,y,room.name).look();
+                            if(_.intersection(square,OBSTACLE_OBJECT_TYPES_NO_CREEP).length==0) {
+                                ++passable
                             }
                         }
                     }

@@ -1,16 +1,18 @@
-var roles = require('roles');
-var rolemanager = require('rolemanager');
-function ensureEnoughOfRole(role) {
-    let creeps = _.filter(Game.creeps, (creep) => creep.memory.role == role.role);
+let roles = require('roles');
+let rolemanager = require('rolemanager');
+function ensureEnoughOfRole(room,role) {
+    let creeps = _.filter(room.creeps, (creep) => creep.memory.role == role.role);
     if(creeps.length < role.min) {
-        Game.spawns['Spaw'].createCreep(role.parts,undefined, {role: role.role});
+        let spawns=room.find(FIND_MY_SPAWNS);
+        if(spawns.length > 0) {
+            spawns[0].createCreep(role.parts,undefined, {role: role.role});
+        }
         return false;
     }
     return true;
 }
 
 module.exports.loop = function () {
-
     for(let name in Memory.creeps) {
         if(!Game.creeps[name]) {
             delete Memory.creeps[name];
@@ -18,22 +20,22 @@ module.exports.loop = function () {
         }
     }
 
-    var tower = Game.getObjectById('TOWER_ID');
+    let tower = Game.getObjectById('TOWER_ID');
     if(tower) {
-        var closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
+        let closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
             filter: (structure) => structure.hits < structure.hitsMax
         });
         if(closestDamagedStructure) {
             tower.repair(closestDamagedStructure);
         }
 
-        var closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+        let closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
         if(closestHostile) {
             tower.attack(closestHostile);
         }
     }
 
-    var counter = {};
+    let counter = {};
     for(let name in Game.creeps) {
         let creep = Game.creeps[name];
         let role = roles[creep.memory.role];
@@ -49,10 +51,13 @@ module.exports.loop = function () {
         }
     }
 
-    for(var role in roles) {
-         if(!ensureEnoughOfRole(roles[role])) {
-             break;
-         }
+    for(let role in roles) {
+        for(let roomName in Game.rooms) {
+            let room=Game.rooms[roomName];
+            if(!ensureEnoughOfRole(room,roles[role])) {
+                break;
+            }
+        }
     }
     rolemanager.process();
 };

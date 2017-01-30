@@ -36,7 +36,9 @@ module.exports = {
                             creep.memory.idle=true;
                         }
                     } else {
-                        if(target.hits >= target.hitsMax*(HEAL_UNTIL_PERCENT/100)) {
+                        if(target.structureType == "wall" && target.hits >= MIN_HITS) {
+                            creep.memory.idle = true;
+                        } else if(target.hits >= target.hitsMax*(HEAL_UNTIL_PERCENT/100)) {
                             creep.memory.idle = true
                         } else {
                             if(creep.repair(target) == ERR_NOT_IN_RANGE) {

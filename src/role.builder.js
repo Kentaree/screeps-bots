@@ -36,7 +36,8 @@ module.exports = {
                             creep.memory.idle=true;
                         }
                     } else {
-                        if(target.structureType == "wall" && target.hits >= MIN_HITS) {
+                        if((target.structureType == "constructedWall" || target.structureType == "rampart")
+                            && target.hits >= MIN_HITS) {
                             creep.memory.idle = true;
                         } else if(target.hits >= target.hitsMax*(HEAL_UNTIL_PERCENT/100)) {
                             creep.memory.idle = true

@@ -10,13 +10,13 @@ module.exports = {
         run: roleHarvester.run
     },
     builder: {
-        parts: [WORK,WORK,CARRY,CARRY,MOVE],
+        parts: [WORK,CARRY,MOVE],
         role: 'builder',
         min: 5,
         run: roleBuilder.run
     },
     upgrader: {
-        parts: [WORK,WORK,CARRY,CARRY,MOVE],
+        parts: [WORK,CARRY,MOVE],
         role: 'upgrader',
         min: 10,
         run: roleUpgrader.run

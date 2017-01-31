@@ -1,7 +1,11 @@
 let roles = require('roles');
 let rolemanager = require('rolemanager');
 function ensureEnoughOfRole(room,role) {
-    let creeps = _.filter(room.creeps, (creep) => creep.memory.role == role.role);
+    let creeps = room.find(FIND_MY_CREEPS,{
+        filter: (creep) => {
+            return (creep.memory.role == role.role)
+        }
+    });
     if(creeps.length < role.min) {
         let spawns=room.find(FIND_MY_SPAWNS);
         if(spawns.length > 0) {

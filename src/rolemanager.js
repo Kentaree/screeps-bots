@@ -4,15 +4,6 @@ let utils = require('common');
 const MIN_HITS_PERCENT=30;
 const OBSTACLE_OBJECT_TYPES_NO_CREEP = ["spawn", "wall", "source", "constructedWall", "extension", "link", "storage", "tower", "observer", "powerSpawn", "powerBank", "lab", "terminal","nuker"]
 
-function ensureEnoughOfRole(role) {
-    let creeps = _.filter(Game.creeps, (creep) => creep.memory.role == role.role);
-    if(creeps.length < role.min) {
-        Game.spawns['Spaw'].createCreep(role.parts,undefined, {role: role.role});
-        return false;
-    }
-    return true;
-}
-
 function findSuitableDropoff(creep) {
     let structures = creep.room.find(FIND_MY_STRUCTURES, { filter: (structure) => { return structure.structureType == STRUCTURE_SPAWN && structure.energy < structure.energyCapacity; } } )
     if(structures.length == 0) {

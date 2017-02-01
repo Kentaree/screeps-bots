@@ -12,7 +12,7 @@ function ensureEnoughOfRole(room,role) {
             if(spawns[0].canCreateCreep(role.parts)==OK) {
                 let res = spawns[0].createCreep(role.parts,undefined, {role: role.role})
                 if(_.isString(res)) {
-                    console.log('Created creep ' + res + ' with role ' + role)
+                    console.log('Created creep ' + res + ' with role ' + role.role)
                 } else {
                     console.log('Didn\'t create creep because ' + res)
                 }
@@ -62,9 +62,9 @@ module.exports.loop = function () {
         }
     }
 
-    for(let role in roles) {
-        for(let roomName in Game.rooms) {
-            let room=Game.rooms[roomName];
+    for(let roomName in Game.rooms) {
+        let room=Game.rooms[roomName];
+        for(let role in roles) {
             if(!ensureEnoughOfRole(room,roles[role])) {
                 break;
             }

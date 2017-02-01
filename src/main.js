@@ -9,7 +9,7 @@ function ensureEnoughOfRole(room,role) {
     if(creeps.length < role.min) {
         let spawns=room.find(FIND_MY_SPAWNS);
         if(spawns.length > 0) {
-            if(spawns[0].canCreateCreep(role.parts)) {
+            if(spawns[0].canCreateCreep(role.parts)==OK) {
                 let res = spawns[0].createCreep(role.parts,undefined, {role: role.role})
                 if(_.isString(res)) {
                     console.log('Created creep ' + res + ' with role ' + role)

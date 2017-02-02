@@ -1,30 +1,7 @@
-var roles = require('roles');
+let roles = require('roles');
 let utils = require('common');
 
 const MIN_HITS_PERCENT=30;
-const OBSTACLE_OBJECT_TYPES_NO_CREEP = ["spawn", "wall", "source", "constructedWall", "extension", "link", "storage", "tower", "observer", "powerSpawn", "powerBank", "lab", "terminal","nuker"]
-
-function findSuitableDropoff(creep) {
-    let structures = creep.room.find(FIND_MY_STRUCTURES, { filter: (structure) => { return structure.structureType == STRUCTURE_SPAWN && structure.energy < structure.energyCapacity; } } )
-    if(structures.length == 0) {
-        structures = creep.room.find(FIND_MY_STRUCTURES, { filter: (structure) => { return structure.structureType == STRUCTURE_EXTENSION && structure.energy < structure.energyCapacity; } } )
-    }
-    if(structures.length == 0) {
-        structures = creep.room.find(FIND_STRUCTURES, { filter: (structure) => { return ((structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity) || (structure.structureType == STRUCTURE_CONTAINER && _.sum(structure.store) < structure.storeCapacity) } } )
-    }
-    if(structures.length>0) {
-        let target = _.reduce(structures, function(result, structure) {
-            let range=creep.pos.getRangeTo(structure);
-            if(result && result.range < range) {
-                return result;
-            }
-            return {range: range, structure: structure}
-        },{range: 99999});
-        creep.memory.dropoff = target.structure.id;
-        return target.structure
-    }
-}
-
 
 module.exports = {
     process : function () {
@@ -35,32 +12,13 @@ module.exports = {
                 let sources = room.find(FIND_SOURCES_ACTIVE);
                 let memSources = [];
                 sources.forEach(function(source) {
-                    let startY = source.pos.y-1;
-                    let startX = source.pos.x-1;
-                    let passable = 0;
-                    for(let y=startY; y < (startY+3); y++) {
-                        for(let x=startX; x < (startX+3); x++) {
-                            let square = new RoomPosition(x,y,room.name).look().map(function(lookRes) {
-                                if(lookRes.type === 'terrain') {
-                                    return lookRes['terrain'];
-                                }
-                                if(lookRes.type === 'structure') {
-                                    return lookRes['structure'].structureType;
-                                }
-
-                                return lookRes.type;
-                            });
-                            if(_.intersection(square,OBSTACLE_OBJECT_TYPES_NO_CREEP).length==0) {
-                                ++passable
-                            }
-                        }
-                    }
+                    let passable = utils.moveableSpacesAround(source.pos,room).length;
                     Game.notify('Source ' + source.id + " has " + passable + " passable squares");
                     memSources.push({id: source.id, passable: passable});
                 });
                 room.memory.sources = memSources;
             }
-            let sourcesCount=room.memory.sources.length
+            let sourcesCount=room.memory.sources.length;
 
             let constructionSites = room.find(FIND_MY_CONSTRUCTION_SITES);
             let inNeedofRepair = room.find(FIND_STRUCTURES, {filter: (structure) => {
@@ -95,4 +53,4 @@ module.exports = {
             }
         }
     }
-}
+};

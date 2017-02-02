@@ -1,5 +1,31 @@
 let _ = require('lodash');
 
+const OBSTACLE_OBJECT_TYPES_NO_CREEP = ["spawn", "wall", "source", "constructedWall", "extension", "link", "storage", "tower", "observer", "powerSpawn", "powerBank", "lab", "terminal","nuker"]
+
+function moveableSpacesAround(pos, room) {
+    let startY = pos.y-1;
+    let startX = pos.x-1;
+    let spaces = []
+    for(let y=startY; y < (startY+3); y++) {
+        for(let x=startX; x < (startX+3); x++) {
+            let square = new RoomPosition(x,y,room.name).look().map(function(lookRes) {
+                if(lookRes.type === 'terrain') {
+                    return lookRes['terrain'];
+                }
+                if(lookRes.type === 'structure') {
+                    return lookRes['structure'].structureType;
+                }
+
+                return lookRes.type;
+            });
+            if(_.intersection(square,OBSTACLE_OBJECT_TYPES_NO_CREEP).length==0) {
+                spaces.push(square)
+            }
+        }
+    }
+    return spaces;
+}
+
 module.exports = {
     findBestEnergySource : function(creep) {
         let closest = creep.pos.findClosestByPath(FIND_STRUCTURES, {
@@ -22,6 +48,9 @@ module.exports = {
             return _.sum(structure.store) < structure.storeCapacity;
         }
         return structure.energy < structure.energyCapacity;
-    }
+    },
+
+    moveableSpacesAround : moveableSpacesAround
+    
 
 };

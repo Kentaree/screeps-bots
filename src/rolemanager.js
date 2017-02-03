@@ -36,7 +36,7 @@ module.exports = {
                     if(constructionSites.length > 0) {
                         site=creep.pos.findClosestByPath(constructionSites, {
                             filter : function (site) {
-                                return (site.id != creep.memory.project.id);
+                                return (!creep.memory.project) || (site.id != creep.memory.project);
                             }
                         });
                         if(site) {
@@ -48,7 +48,7 @@ module.exports = {
                     if(!site) {
                         site=creep.pos.findClosestByPath(inNeedofRepair, {
                             filter : function (site) {
-                                return (site.id != creep.memory.project.id);
+                                return (!creep.memory.project) || (site.id != creep.memory.project);
                             }
                         });
                         if(site) {

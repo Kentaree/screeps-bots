@@ -34,7 +34,11 @@ module.exports = {
                 if(creep.memory.role==='builder' && creep.memory.idle) {
                     let site;
                     if(constructionSites.length > 0) {
-                        site=creep.pos.findClosestByPath(constructionSites);
+                        site=creep.pos.findClosestByPath(constructionSites, {
+                            filter : function (site) {
+                                return (site.id != creep.memory.project.id);
+                            }
+                        });
                         if(site) {
                             creep.memory.project=site.id;
                             creep.memory.construction=true;
@@ -42,7 +46,11 @@ module.exports = {
                         }
                     }
                     if(!site) {
-                        site=creep.pos.findClosestByPath(inNeedofRepair);
+                        site=creep.pos.findClosestByPath(inNeedofRepair, {
+                            filter : function (site) {
+                                return (site.id != creep.memory.project.id);
+                            }
+                        });
                         if(site) {
                             creep.memory.project=site.id;
                             creep.memory.construction=false;

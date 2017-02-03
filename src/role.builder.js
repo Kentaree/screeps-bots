@@ -1,5 +1,3 @@
-const MIN_HITS=250000;
-const MIN_HITS_PERCENT=30;
 const HEAL_UNTIL_PERCENT=60;
 let _ = require('lodash');
 let util = require('common');
@@ -37,7 +35,7 @@ module.exports = {
                         }
                     } else {
                         if((target.structureType == "constructedWall" || target.structureType == "rampart")
-                            && target.hits >= MIN_HITS || (target.hits >= target.hitsMax)) {
+                            && (target.hits >= target.hitsMax)) {
                             creep.memory.idle = true;
                         } else if(target.hits >= target.hitsMax*(HEAL_UNTIL_PERCENT/100)) {
                             creep.memory.idle = true

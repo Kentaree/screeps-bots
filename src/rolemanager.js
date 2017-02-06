@@ -34,7 +34,7 @@ module.exports = {
                 if(creep.memory.role==='builder' && creep.memory.idle) {
                     let site;
                     if(constructionSites.length > 0) {
-                        site=creep.pos.findClosestByPath(constructionSites, {
+                        site=creep.pos.findClosestByRange(constructionSites, {
                             filter : function (site) {
                                 return (!creep.memory.project) || (site.id != creep.memory.project);
                             }
@@ -46,7 +46,7 @@ module.exports = {
                         }
                     }
                     if(!site) {
-                        site=creep.pos.findClosestByPath(inNeedofRepair, {
+                        site=creep.pos.findClosestByRange(inNeedofRepair, {
                             filter : function (site) {
                                 return (!creep.memory.project) || (site.id != creep.memory.project);
                             }

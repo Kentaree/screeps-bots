@@ -1,10 +1,10 @@
 let utils = require('common');
 
-let roomCost = {};
+let roomCostCache = {};
 
 function roomCost(roomName) {
-    if(roomCost[roomName]) {
-        return roomCost[roomName];
+    if(roomCostCache[roomName]) {
+        return roomCostCache[roomName];
     }
     let room = Game.rooms[roomName]
     if(room) {

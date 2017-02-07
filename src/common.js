@@ -3,12 +3,9 @@ let _ = require('lodash');
 const OBSTACLE_OBJECT_TYPES_NO_CREEP = ["spawn", "wall", "source", "constructedWall", "extension", "link", "storage", "tower", "observer", "powerSpawn", "powerBank", "lab", "terminal","nuker"]
 
 function moveableSpacesAround(pos, room) {
-    let startY = pos.y-1;
-    let startX = pos.x-1;
-    let spaces = []
-    for(let y=startY; y < (startY+3); y++) {
-        for(let x=startX; x < (startX+3); x++) {
-            let square = new RoomPosition(x,y,room.name).look().map(function(lookRes) {
+    let spaces = [];
+    spacesAround(room,pos,function(space) {
+            space.look().map(function(lookRes) {
                 if(lookRes.type === 'terrain') {
                     return lookRes['terrain'];
                 }
@@ -22,9 +19,24 @@ function moveableSpacesAround(pos, room) {
                 spaces.push(square)
             }
         }
-    }
+    );
     return spaces;
 }
+
+function spacesAround(room, pos, callback) {
+    let startY = pos.y-1;
+    let startX = pos.x-1;
+    for(let y=startY; y < (startY+3); y++) {
+        for(let x=startX; x < (startX+3); x++) {
+            if(x === pos.x && y === pos.y) {
+                continue;
+            }
+            callback(new RoomPosition(x,y,room.name));
+        }
+    }
+}
+
+
 
 module.exports = {
     findBestEnergySource : function(creep) {
@@ -50,8 +62,7 @@ module.exports = {
         return structure.energy < structure.energyCapacity;
     },
 
+    spacesAround : spacesAround,
     moveableSpacesAround : moveableSpacesAround,
     OBSTACLE_OBJECT_TYPES_NO_CREEP : OBSTACLE_OBJECT_TYPES_NO_CREEP
-    
-
 };

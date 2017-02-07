@@ -1,5 +1,6 @@
 let roles = require('roles');
 let rolemanager = require('rolemanager');
+let structuremanager = require('structuremanager');
 let tower = require('tower');
 
 function ensureEnoughOfRole(room,role) {
@@ -58,6 +59,7 @@ module.exports.loop = function () {
             }
         }
         tower.process(room);
+        structuremanager.process(room);
     }
     rolemanager.process();
 };

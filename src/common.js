@@ -50,7 +50,8 @@ module.exports = {
         return structure.energy < structure.energyCapacity;
     },
 
-    moveableSpacesAround : moveableSpacesAround
+    moveableSpacesAround : moveableSpacesAround,
+    OBSTACLE_OBJECT_TYPES_NO_CREEP : OBSTACLE_OBJECT_TYPES_NO_CREEP
     
 
 };

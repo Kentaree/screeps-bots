@@ -40,25 +40,22 @@ function planRoads(room) {
                     roomCallback: roomCost
                 });
             if(!results.incomplete) {
+                let lastPos;
                 results.path.forEach(function(pos) {
                      room.createConstructionSite(pos, STRUCTURE_ROAD);
+                     lastPos = pos;
                 });
+                if(lastPos) {
+                    room.createConstructionSite(lastPos, STRUCTURE_CONTAINER);
+                }
             }
         })
     });
 }
 
-function buildContainers(room) {
-    let sources = room.find(FIND_SOURCES);
-    sources.forEach(function(source){
-        let spaces = utils.moveableSpacesAround(source.pos)
-    });
-}
-
-
 module.exports = {
     process: function (room) {
-        if(Game.time % 50 == 0) {
+        if(Game.time % 100 == 0) {
             planRoads(room)
         }
     }

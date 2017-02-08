@@ -34,6 +34,13 @@ module.exports.loop = function () {
         }
     }
 
+    for(let name in Memory.rooms) {
+        if(!Game.rooms[name]) {
+            delete Memory.rooms[name];
+            console.log('Clearing non-existing room memory:', name)
+        }
+    }
+
 
     let counter = {};
     for(let name in Game.creeps) {
@@ -63,3 +70,4 @@ module.exports.loop = function () {
     }
     rolemanager.process();
 };
+

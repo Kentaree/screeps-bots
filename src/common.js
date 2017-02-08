@@ -5,7 +5,7 @@ const OBSTACLE_OBJECT_TYPES_NO_CREEP = ["spawn", "wall", "source", "constructedW
 function moveableSpacesAround(pos, room) {
     let spaces = [];
     spacesAround(room,pos,function(space) {
-            space.look().map(function(lookRes) {
+            let square = space.look().map(function(lookRes) {
                 if(lookRes.type === 'terrain') {
                     return lookRes['terrain'];
                 }
@@ -16,7 +16,7 @@ function moveableSpacesAround(pos, room) {
                 return lookRes.type;
             });
             if(_.intersection(square,OBSTACLE_OBJECT_TYPES_NO_CREEP).length==0) {
-                spaces.push(square)
+                spaces.push(space)
             }
         }
     );

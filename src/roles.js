@@ -4,19 +4,19 @@ let roleBuilder = require('role.builder');
 
 module.exports = {
     harvester: {
-        parts: [WORK,CARRY,MOVE],
+        parts: [WORK,WORK,CARRY,MOVE],
         role: 'harvester',
         min: 3,
         run: roleHarvester.run
     },
     builder: {
-        parts: [WORK,CARRY,MOVE],
+        parts: [WORK,WORK,CARRY,MOVE],
         role: 'builder',
         min: 5,
         run: roleBuilder.run
     },
     upgrader: {
-        parts: [WORK,CARRY,MOVE],
+        parts: [WORK,WORK,CARRY,MOVE],
         role: 'upgrader',
         min: 10,
         run: roleUpgrader.run

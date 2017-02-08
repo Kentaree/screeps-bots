@@ -29,7 +29,7 @@ module.exports = {
             for(let i = 0; i < creeps.length; i++) {
                 let creep = creeps[i];
                 if (!creep.memory.source) {
-                    creep.memory.source = room.memory.sources[i % sourcesCount].id
+                    creep.memory.source = _.keys(room.memory.sources)[i % sourcesCount].id
                 }
                 if(creep.memory.role==='builder' && creep.memory.idle) {
                     let site;

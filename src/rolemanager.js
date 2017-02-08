@@ -10,11 +10,11 @@ module.exports = {
             let room = Game.rooms[key];
             if (!room.memory.sources) {
                 let sources = room.find(FIND_SOURCES_ACTIVE);
-                let memSources = [];
+                let memSources = {};
                 sources.forEach(function(source) {
                     let passable = utils.moveableSpacesAround(source.pos,room).length;
                     Game.notify('Source ' + source.id + " has " + passable + " passable squares");
-                    memSources.push({id: source.id, passable: passable});
+                    memSources[source.id] = {passable: passable}
                 });
                 room.memory.sources = memSources;
             }

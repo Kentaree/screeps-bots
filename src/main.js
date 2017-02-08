@@ -70,9 +70,3 @@ module.exports.loop = function () {
     }
     rolemanager.process();
 };
-
-function removeMemorySources() {
-    for(let name in Memory.rooms) {
-        delete Memory.rooms[name].sources
-    }
-}

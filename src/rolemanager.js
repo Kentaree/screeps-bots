@@ -19,7 +19,7 @@ module.exports = {
                 });
                 room.memory.sources = memSources;
             }
-            let sourcesCount=room.memory.sources.length;
+            let sourcesCount=_.keys(room.memory.sources).length;
 
             let constructionSites = room.find(FIND_MY_CONSTRUCTION_SITES);
             let inNeedofRepair = room.find(FIND_STRUCTURES, {filter: (structure) => {

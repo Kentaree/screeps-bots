@@ -2,6 +2,7 @@ let roles = require('roles');
 let utils = require('common');
 
 const MIN_HITS_PERCENT=30;
+const MIN_HITS=250000;
 
 module.exports = {
     process : function () {
@@ -22,6 +23,9 @@ module.exports = {
 
             let constructionSites = room.find(FIND_MY_CONSTRUCTION_SITES);
             let inNeedofRepair = room.find(FIND_STRUCTURES, {filter: (structure) => {
+                if((structure.structureType == "constructedWall" || structure.structureType == "rampart") && structure.hits >= MIN_HITS) {
+                    return false;
+                }
                 return (structure.hits < structure.hitsMax*(MIN_HITS_PERCENT/100));
             }});
 

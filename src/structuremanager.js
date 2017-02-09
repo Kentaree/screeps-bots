@@ -47,6 +47,7 @@ function planRoads(room) {
                 });
                 if(lastPos) {
                     room.createConstructionSite(lastPos, STRUCTURE_CONTAINER);
+                    room.memory.sources[source.id].containerPos = lastPos;
                 }
             }
         })

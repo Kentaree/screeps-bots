@@ -1,6 +1,7 @@
 let roleHarvester = require('role.harvester');
 let roleUpgrader = require('role.upgrader');
 let roleBuilder = require('role.builder');
+let roleSprinter = require('role.sprinter');
 
 module.exports = {
     harvester: {
@@ -20,5 +21,11 @@ module.exports = {
         role: 'upgrader',
         min: 10,
         run: roleUpgrader.run
+    },
+    sprinter: {
+        parts: [CARRY,CARRY,MOVE,MOVE],
+        role: 'sprinter',
+        min: 0,
+        run: roleSprinter.run
     }
 };

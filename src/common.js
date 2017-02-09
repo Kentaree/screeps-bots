@@ -62,6 +62,13 @@ module.exports = {
         return structure.energy < structure.energyCapacity;
     },
 
+    hasEnergy : function (structure) {
+        if(structure.structureType == STRUCTURE_CONTAINER) {
+            return _.sum(structure.store) > 0;
+        }
+        return structure.energy > 0;
+    },
+
     spacesAround : spacesAround,
     moveableSpacesAround : moveableSpacesAround,
     OBSTACLE_OBJECT_TYPES_NO_CREEP : OBSTACLE_OBJECT_TYPES_NO_CREEP

@@ -31,7 +31,7 @@ var roleUpgrader = {
                 closest = creep.pos.findClosestByRange(FIND_SOURCES);
             }
 
-            if(!util.hasEnergySpace(closest)) {
+            if(!util.hasEnergy(closest)) {
                 closest = util.findBestEnergySource(creep);
             }
 

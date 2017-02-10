@@ -1,4 +1,4 @@
-const MIN_HITS=250000;
+const MIN_HITS=300000;
 const MIN_HITS_PERCENT=30;
 const HEAL_UNTIL_PERCENT=60;
 let _ = require('lodash');

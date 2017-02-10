@@ -36,7 +36,7 @@ let roleHarvester = {
         if(!creep.memory.harvesting && creep.carry.energy==0) {
             creep.say('Harvesting');
             creep.memory.harvesting = true;
-            let source = creep.pos.findClosestByPath(FIND_SOURCES);
+            let source = creep.pos.findClosestByRange(FIND_SOURCES);
             if(source) {
                 creep.memory.source = source.id;
             }

@@ -36,8 +36,6 @@ function spacesAround(room, pos, callback) {
     }
 }
 
-
-
 module.exports = {
     findBestEnergySource : function(creep) {
         let closest = creep.pos.findClosestByPath(FIND_STRUCTURES, {

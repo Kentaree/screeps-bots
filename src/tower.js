@@ -5,18 +5,17 @@ module.exports = {
         });
 
         towers.forEach(function(tower) {
+            let closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+            if(closestHostile) {
+                tower.attack(closestHostile);
+            } else {
                 let closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
                     filter: (structure) => structure.hits < structure.hitsMax
                 });
-                if(closestDamagedStructure) {
+                if(closestDamagedStructure && tower.energy > (tower.energyCapacity/2)) {
                     tower.repair(closestDamagedStructure);
                 }
-
-                let closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-                if(closestHostile) {
-                    tower.attack(closestHostile);
-                }
             }
-        );
+        });
     }
 };

@@ -1,6 +1,4 @@
-let _ = require('lodash');
 let utils = require('common');
-
 
 function findSuitableDropoff(creep) {
     let structures = creep.room.find(FIND_MY_STRUCTURES, { filter: (structure) => { return structure.structureType == STRUCTURE_EXTENSION && structure.energy < structure.energyCapacity; } } )

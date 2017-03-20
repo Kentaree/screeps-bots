@@ -1,5 +1,3 @@
-let _ = require('lodash');
-
 const OBSTACLE_OBJECT_TYPES_NO_CREEP = ["spawn", "wall", "source", "constructedWall", "extension", "link", "storage", "tower", "observer", "powerSpawn", "powerBank", "lab", "terminal","nuker"]
 
 function moveableSpacesAround(pos, room) {

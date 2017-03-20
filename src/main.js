@@ -41,7 +41,6 @@ module.exports.loop = function () {
         }
     }
 
-
     let counter = {};
     for(let name in Game.creeps) {
         let creep = Game.creeps[name];

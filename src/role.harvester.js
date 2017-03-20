@@ -42,7 +42,7 @@ let roleHarvester = {
 
         if(creep.memory.harvesting) {
             if(creep.memory.source) {
-                closest = Game.getObjectById(creep.memory.source);
+                let closest = Game.getObjectById(creep.memory.source);
                 if(creep.harvest(closest) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(closest);
                     creep.say('Move src');
